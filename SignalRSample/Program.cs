@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SignalRSample.Data;
+using SignalRSample.Hubs;
 
 namespace SignalRSample
 {
@@ -19,6 +20,9 @@ namespace SignalRSample
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            //add signalR service to the project
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -45,6 +49,9 @@ namespace SignalRSample
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            //add default signalR route
+            app.MapHub<UserHub>("/hubs/userCount");
 
             app.Run();
         }
