@@ -52,6 +52,7 @@ namespace SignalRSample
 
             //add default signalR route
             app.MapHub<UserHub>("/hubs/userCount");
+            app.MapHub<DeathlyHallowsHub>("/hubs/deathlyhallows");
 
             app.Run();
         }
